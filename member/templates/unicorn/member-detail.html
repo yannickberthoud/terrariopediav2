@@ -1,0 +1,28 @@
+{% load unicorn %}{% load thumbnail %}{% load static %}{% load countries %}
+<div class="row">
+    <div class="col-md-4">
+        {% thumbnail profile.profile_picture "450x500" crop="center" as im %}
+            <img src="{{ im.url }}" width="{{ im.width }}" height="{{ im.height }}" class="card-img-top img-responsive"
+                 alt="TerrarioPedia - Membre de la communauté {{ user.get_full_name }}"/>
+        {% empty %}
+        <img src="{% static 'assets/images/profile/user-1.jpg' %}" width="450" height="500" class="card-img-top img-responsive"
+                 alt="TerrarioPedia - Membre de la communauté {{ user.get_full_name }}"/>
+        {% endthumbnail %}
+        <hr />
+        {% if request.user == user %}
+            <a href="{% url 'member:member-edit' user.pk %}" class="btn btn-warning btn-block" title="TerrarioPedia - Membre de la communauté - Editer">Editer</a>
+            <a href="{% url 'member:password_change' %}" class="btn btn-outline-warning btn-block" title="TerrarioPedia - Changer le mot de passe">Changer de mot de passe</a><br />
+        {% endif %}
+        <strong>Dernière connexion</strong><br /> {{ user.last_login|date:"d F Y" }}
+    </div>
+    <div class="col-md-8">
+        <h2>{{ user.get_full_name }}</h2>
+        {% if profile.country.flag and profile.current_species is not none %}
+        <img src="{{ profile.country.flag }}" alt="TerrarioPedia - Communauté - {{ profile.country.name }}"/> {{ profile.country.name }}
+        <h2 class="mt-3">Espèces maintenues</h2>
+        {{ profile.current_species|linebreaksbr }}
+        {% else %}
+         <a href="{% url 'member:member-edit' user.pk %}" class="btn btn-block btn-primary" title="TerrarioPedia - Communauté - Editer mon profile">Compléter mon profile</a>
+        {% endif %}
+    </div>
+</div>

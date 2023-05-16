@@ -1,0 +1,20 @@
+{% load sorl_thumbnail %}
+<div class="row">
+    {% for lizard in lizards %}
+    <div class="col-sm-6 col-xl-3">
+        <div class="card overflow-hidden rounded-2">
+            <div class="position-relative">
+                <a href="{% url 'card:lizard-detail' lizard.slug %}"
+                       title="TerrarioPedia - Lézards - Fiche d'élevage {{ lizard.get_scientific_name }}">
+                    {% thumbnail lizard.image "335x235" crop="center" as im %}
+                    <img src="{{ im.url }}" width="{{ im.width }}" height="{{ im.height }}" class="card-img-top"
+                         alt="TerrarioPedia - Serpents - Fiche d'élevage {{ lizard.get_scientific_name }}"/>
+                    {% endthumbnail %}</a>
+            </div>
+            <div class="card-body pt-3 p-4">
+                <h6 class="fw-semibold fs-4">{{ lizard.get_scientific_name }}</h6>
+            </div>
+        </div>
+    </div>
+    {% endfor %}
+</div>

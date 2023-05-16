@@ -1,0 +1,18 @@
+{% extends 'base.html' %}{% load unicorn %}
+{% block page_title %}Amphibiens{% endblock %}
+
+{% block title %}Amphibiens{% endblock %}
+
+{% block content %}
+  <div class="container-fluid">
+         <div class="container-fluid">
+             <div class="card">
+                 <div class="card-body">
+                    <h5 class="card-title fw-semibold mb-4">Fiches d'élevage d'amphibiens</h5>
+                     <a href="{% url 'card:amphibian-new' %}" class="btn btn-outline-primary mb-3" title="TerrarioPedia - Ajouter une fiche d'élevage d'amphibien">Nouvelle fiche</a>
+                      {% unicorn 'amphibian-list' quantity="0" %}
+                 </div>
+             </div>
+         </div>
+</div>
+{% endblock %}

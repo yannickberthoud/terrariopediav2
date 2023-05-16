@@ -1,0 +1,21 @@
+{% load thumbnail %}{% load static %}
+<div class="row">
+    <div class="col-md-4">
+        {% thumbnail ads.image "400x300" crop="center" as im %}
+            <img src="{{ im.url }}" width="{{ im.width }}" height="{{ im.height }}" class="card-img-top"
+                 alt="TerrarioPedia - Petites annonces - {{ ads.get_category_display }}"/>
+        <hr />
+        {% endthumbnail %}
+
+        {% if ads.owner == request.user %}
+        <a href="{% url 'ads:ads-edit' ads.pk %}" class="btn btn-warning btn-block" title="TerrarioPedia - Petites annonces - {{ ads.get_category_display }} - Editer">Editer</a>
+        <a href="{% url 'ads:ads-delete' ads.pk %}" class="btn btn-danger btn-block" title="TerrarioPedia - Petites annonces - {{ ads.get_category_display }} - Editer">Supprimer</a><br />
+        {% endif %}
+        <strong>Publié par</strong><br /> {{ ads.owner.get_full_name }} le {{ ads.created_at|date:"d F Y" }}
+    </div>
+    <div class="col-md-6">
+        <h2>{{ ads.get_type_of_ads_display }} - {{ ads.get_category_display }}</h2>
+            {{ ads.description|linebreaksbr }}
+        </div>
+    </div>
+</div>

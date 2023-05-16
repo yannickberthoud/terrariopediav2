@@ -1,0 +1,28 @@
+{% extends 'base.html' %}
+{% load unicorn %}
+
+{% block page_title %}Documentations{% endblock %}
+
+{% block title %}Documentations{% endblock %}
+
+{% block content %}
+  <div class="container-fluid">
+         <div class="container-fluid">
+             <div class="card">
+                 <div class="card-body">
+                    <h5 class="card-title fw-semibold mb-4">Documentations</h5>
+                     <a href="{% url 'documentation:documentation-new' %}" class="btn btn-outline-primary mb-3" title="TerrarioPedia - Documentation">Nouvelle documentation</a>
+                     {% if "amphibiens" in request.path %}
+                        {% unicorn 'documentation-list' category="A" %}
+                     {% elif "arthropodes" in request.path %}
+                        {% unicorn 'documentation-list' category="R" %}
+                     {% elif "lezards" in request.path %}
+                        {% unicorn 'documentation-list' category="L" %}
+                     {% elif "serpents" in request.path %}
+                        {% unicorn 'documentation-list' category="S" %}
+                     {% endif %}
+                 </div>
+             </div>
+         </div>
+</div>
+{% endblock %}

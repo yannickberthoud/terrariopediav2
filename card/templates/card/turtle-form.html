@@ -1,0 +1,19 @@
+{% extends 'base.html' %}
+{% load unicorn %}
+{% load crispy_forms_tags %}
+{% block page_title %}Formulaire de tortue{% endblock %}
+{% block title %}Formulaire de tortue{% endblock %}
+
+{% block content %}
+  <div class="container-fluid">
+         <div class="container-fluid">
+             <div class="card">
+                 <div class="card-body">
+                    <h5 class="card-title fw-semibold mb-4">Formulaire d'élevage de tortue</h5>
+                       {% unicorn "turtle-form" %}
+                 </div>
+             </div>
+         </div>
+</div>
+
+{% endblock %}

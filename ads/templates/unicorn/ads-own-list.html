@@ -1,0 +1,24 @@
+{% load sorl_thumbnail %}
+<div class="row">
+    {% for ad in ads %}
+        <div class="col-sm-6 col-xl-3">
+            <div class="card overflow-hidden rounded-2">
+                <div class="position-relative">
+                    <a href="{% url 'ads:ads-detail' ad.pk %}"
+                       title="TerrarioPedia - Mes annonces - {{ ad.get_category_display }}">
+                       {% thumbnail ad.image "335x235" crop="center" as im %}
+                         <img src="{{ im.url }}" width="{{ im.width }}" height="{{ im.height }}" class="card-img-top"
+                         alt="TerrarioPedia - Mes annonces - {{ ad.get_category_display }}"/>
+                        {% endthumbnail %}</a>
+                </div>
+                <div class="card-body pt-3 p-4">
+                    <h6 class="fw-semibold fs-4">{{ ad.get_category_display }}</h6>
+                    {{ ad.description|truncatewords:"20" }}
+                </div>
+                <div class="card-footer">
+                    Publié le: {{ ad.created_at }}
+                </div>
+            </div>
+        </div>
+    {% endfor %}
+</div>

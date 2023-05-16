@@ -1,0 +1,24 @@
+{% extends 'base.html' %}
+{% load unicorn %}
+
+{% block page_title %}Petites annonces{% endblock %}
+
+{% block title %}Petites annonces{% endblock %}
+
+{% block content %}
+  <div class="container-fluid">
+         <div class="container-fluid">
+             <div class="card">
+                 <div class="card-body">
+                    <h5 class="card-title fw-semibold mb-4">Petites annonces</h5>
+                     <a href="{% url 'ads:ads-new' %}" class="btn btn-outline-primary mb-3" title="TerrarioPedia - Ajouter une fiche d'élevage d'amphibien">Nouvelle annonce</a>
+                      {% unicorn 'ads-list' category="A" %}<br />
+                      {% unicorn 'ads-list' category="R" %}<br />
+                      {% unicorn 'ads-list' category="L" %}<br />
+                      {% unicorn 'ads-list' category="S" %}<br />
+                      {% unicorn 'ads-list' category="M" %}<br />
+                 </div>
+             </div>
+         </div>
+</div>
+{% endblock %}

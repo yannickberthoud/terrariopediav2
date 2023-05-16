@@ -1,0 +1,158 @@
+{% load thumbnail %}{% load static %}
+<div class="row">
+    <div class="col-md-4">
+        {% thumbnail lizard.image "400x300" crop="center" as im %}
+            <img src="{{ im.url }}" width="{{ im.width }}" height="{{ im.height }}" class="card-img-top"
+                 alt="TerrarioPedia - Lézards - Fiche d'élevage {{ lizard.get_scientific_name }}"/>
+        {% endthumbnail %}
+        <div class="row mt-1">
+            <hr />
+            <div class="col-sm-6">
+                <b>Difficulté de détention</b><br />
+                {% if lizard.difficulty_care == 'N' %}
+                <img src="{% static 'assets/images/jauges/1.png' %}" class="img-fluid" width="150" height="90" title="TerrarioPedia - Fiches d'élevage - Lézards - {{ lizard.get_scientific_name }}" />
+                {% endif %}
+                {% if lizard.difficulty_care == 'B' %}
+                <img src="{% static 'assets/images/jauges/2.png' %}" class="img-fluid" width="150" height="90" title="TerrarioPedia - Fiches d'élevage - Lézards - {{ lizard.get_scientific_name }}" />
+                {% endif %}
+                {% if lizard.difficulty_care == 'E' %}
+                <img src="{% static 'assets/images/jauges/3.png' %}" class="img-fluid" width="150" height="90" title="TerrarioPedia - Fiches d'élevage - Lézards - {{ lizard.get_scientific_name }}" />
+                {% endif %}
+                {% if lizard.difficulty_care == 'X' %}
+                <img src="{% static 'assets/images/jauges/4.png' %}" class="img-fluid" width="150" height="90" title="TerrarioPedia - Fiches d'élevage - Lézards - {{ lizard.get_scientific_name }}" />
+                {% endif %}
+            </div>
+            <div class="col-sm-6">
+                <strong>Danger de la morsure</strong><br />
+                {% if lizard.bite_dangerosity == 'I' %}
+                <img src="{% static 'assets/images/jauges/1.png' %}" class="img-fluid" width="150" height="90" title="TerrarioPedia - Fiches d'élevage - Lézards - {{ lizard.get_scientific_name }}" />
+                {% endif %}
+                {% if lizard.bite_dangerosity == 'P' %}
+                <img src="{% static 'assets/images/jauges/2.png' %}" class="img-fluid" width="150" height="90" title="TerrarioPedia - Fiches d'élevage - Lézards - {{ lizard.get_scientific_name }}" />
+                {% endif %}
+                {% if lizard.bite_dangerosity == 'D' %}
+                <img src="{% static 'assets/images/jauges/3.png' %}" class="img-fluid" width="150" height="90" title="TerrarioPedia - Fiches d'élevage - Lézards - {{ lizard.get_scientific_name }}" />
+                {% endif %}
+                {% if lizard.bite_dangerosity == 'E' %}
+                <img src="{% static 'assets/images/jauges/4.png' %}" class="img-fluid" width="150" height="90" title="TerrarioPedia - Fiches d'élevage - Lézards - {{ lizard.get_scientific_name }}" />
+                {% endif %}
+            </div>
+            <hr />
+        </div>
+        <p>
+            {{ lizard.more_informations }}
+        </p>
+        <hr />
+        <a href="{% url 'card:lizard-edit' lizard.slug %}" class="btn btn-warning btn-block" title="TerrarioPedia - Lézards - Fiches d'élevage de {{ lizard.get_scientific_name }} - Editer">Editer</a><br />
+        <strong>Dernière modification</strong><br /> {{ lizard.last_owner }} - {{ lizard.last_update|date:"d F Y" }}
+    </div>
+    <div class="col-md-6">
+        <h2>{{ lizard.get_scientific_name }}</h2>
+        <p>Espèce{% if not lizard.is_cites %} non{% endif %} CITES
+            {% if lizard.bern_convention_annex %}- annexe {{ lizard.bern_convention_annex }}{% endif %}</p>
+        <strong>Description</strong>
+        <div class="table-responsive">
+            <table class="table search-table align-middle text-nowrap">
+                <tbody>
+                    <tr class="search item">
+                        <td scope="row">Taille des juvéniles</td>
+                        <td>{{ lizard.juvenil_size }} cm</td>
+                    </tr>
+                    <tr class="search item">
+                        <td scope="row">Taille des adultes</td>
+                        <td>{{ lizard.adult_size }} cm</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+        <strong>Biologie</strong>
+        <div class="table-responsive">
+            <table class="table search-table align-middle text-nowrap">
+                <tbody>
+                    <tr class="search item">
+                        <td scope="row">Espérance de vie</td>
+                        <td>{{ lizard.life_expectancy }} ans</td>
+                    </tr>
+                    <tr class="search item">
+                        <td scope="row">Moeurs principal</td>
+                        <td>{{ lizard.get_main_mores_display }}</td>
+                    </tr>
+                    <tr class="search item">
+                        <td scope="row">Tempérament</td>
+                        <td>{{ lizard.get_main_behavior_display }}</td>
+                    </tr>
+                    <tr class="search item">
+                        <td scope="row">Période d'activité</td>
+                        <td>{{ lizard.get_activity_period_display }}</td>
+                    </tr>
+                    <tr class="search item">
+                        <td scope="row">Proies</td>
+                        <td>
+                            {% for prey in lizard.preys.all %}
+                                {{ prey }}{% if not forloop.last %}<br /> {% endif %}
+                            {% endfor %}
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+        <strong>Environnements</strong>
+        <div class="table-responsive">
+            <table class="table search-table align-middle text-nowrap">
+                <tbody>
+                    <tr class="search item">
+                        <td scope="row">Distribution</td>
+                        <td>{{ lizard.distribution }}</td>
+                    </tr>
+                    <tr class="search item">
+                        <td scope="row">Biotopes</td>
+                        <td>
+                            {% for biotop in lizard.biotops.all %}
+                            {{ biotop }}{% if not forloop.last %}<br /> {% endif %}
+                            {% endfor %}
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+        <strong>En captivité</strong>
+        <div class="table-responsive">
+            <table class="table table-responsive search-table align-middle text-nowrap">
+                <tbody>
+                    <tr class="search item">
+                        <td scope="row">Difficulté de détention</td>
+                        <td>{{ lizard.get_difficulty_care_display }}</td>
+                    </tr>
+                    <tr class="search item">
+                        <td scope="row">Dimension du Terrarium</td>
+                        <td>{{ lizard.vivarium_size }} cm</td>
+                    </tr>
+                    <tr class="search item">
+                        <td scope="row">Température jour / nuit</td>
+                        <td>{{ lizard.day_temperature }} / {{ lizard.night_temperature }}</td>
+                    </tr>
+                    <tr class="search item">
+                        <td scope="row">Humidité</td>
+                        <td>{{ lizard.humidity }}</td>
+                    </tr>
+                    <tr class="search item">
+                        <td scope="row">Dimension du Terrarium</td>
+                        <td>{{ lizard.vivarium_size }} cm</td>
+                    </tr>
+                    <tr class="search item">
+                        <td scope="row">Vie en communauté</td>
+                        <td>
+                            {% for life_community in lizard.life_community.all %}
+                            {{ life_community }}{% if not forloop.last %}<br /> {% endif %}
+                            {% endfor %}
+                        </td>
+                    </tr>
+                    <tr class="search item">
+                        <td scope="row">Dangerosité de la morsure</td>
+                        <td>{{ lizard.get_bite_dangerosity_display }}</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>

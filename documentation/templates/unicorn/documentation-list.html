@@ -1,0 +1,22 @@
+<div>
+    {% load sorl_thumbnail %}
+<div class="row">
+    {% for documentation in documentations %}
+        <div class="col-sm-6 col-xl-3">
+            <div class="card overflow-hidden rounded-2">
+                <div class="position-relative">
+                    <a href="{% url 'documentation:documentation-detail' documentation.get_category_display|lower documentation.slug %}"
+                       title="TerrarioPedia - Documentation - {{ documentation.get_category_display }} - {{ documentation.title }}">
+                       {% thumbnail documentation.banner "335x235" crop="center" as im %}
+                         <img src="{{ im.url }}" width="{{ im.width }}" height="{{ im.height }}" class="card-img-top"
+                         alt="TerrarioPedia - Documentation - {{ documentation.get_category_display }} - {{ documentation.title }}"/>
+                        {% endthumbnail %}</a>
+                </div>
+                <div class="card-body pt-3 p-4">
+                    <h6 class="fw-semibold fs-4">{{ documentation.title }}</h6>
+                </div>
+            </div>
+        </div>
+    {% endfor %}
+</div>
+</div>

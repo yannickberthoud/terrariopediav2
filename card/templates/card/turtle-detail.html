@@ -1,0 +1,17 @@
+{% extends 'base.html' %}{% load unicorn %}
+{% block page_title %}Tortues{% endblock %}
+
+{% block title %}Tortues{% endblock %}
+
+{% block content %}
+  <div class="container-fluid">
+         <div class="container-fluid">
+             <div class="card">
+                 <div class="card-body">
+                    <h5 class="card-title fw-semibold mb-4">Fiches d'élevage de tortues</h5>
+                     {% unicorn 'turtle-detail' slug=slug %}
+                 </div>
+             </div>
+         </div>
+</div>
+{% endblock %}

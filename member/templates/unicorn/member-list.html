@@ -1,0 +1,20 @@
+{% load thumbnail %}{% load countries %}
+<div class="row">
+    {% for member in members %}
+    <div class=" col-md-6 col-xl-4">
+        <div class="card">
+            <div class="card-body p-4 d-flex align-items-center gap-3">
+                {% thumbnail member.profile.profile_picture "40x40" crop="center" as im %}
+                <img src="{{ im.url }}" alt="TerrarioPedia - Communauté - {{ member }}" class="rounded-circle" width="{{ im.width }}" height="{{ im.height }}">
+                {% endthumbnail %}
+                <div>
+                    <h5 class="fw-semibold mb-0">
+                        <a href="{% url 'member:member-detail' member.pk %}" title="TerrarioPedia - Communauté - Profile de {{ member.get_full_name }}">{{ member.get_full_name }}</a>
+                    </h5>
+                    <span class="fs-2 d-flex align-items-center"><img src="{{ member.profile.country.flag }}" alt="TerrarioPedia - Communauté - {{ member.profile.country.name }}"/>{{ member.profile.country.name }}</span>
+                </div>
+            </div>
+        </div>
+    </div>
+    {% endfor %}
+</div>

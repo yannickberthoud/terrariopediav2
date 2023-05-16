@@ -1,0 +1,29 @@
+{% extends 'base.html' %}
+{% block page_title %}Supprimer une annonce{% endblock %}
+
+{% block title %}Supprimer une annonce{% endblock %}
+
+{% block content %}
+<div class="container-fluid">
+         <div class="container-fluid">
+             <div class="card">
+                 <div class="card-body">
+                    <h5 class="card-title fw-semibold mb-4"><p>Êtes-vous sûr de vouloir supprimer l'annonce parue le {{ object.created_at|date:"d F Y" }}  ?</h5>
+                    <form method="post">{% csrf_token %}
+
+                        <ul>
+                            <li><strong>Categérie :</strong><br />{{ object.get_category_display }}</li>
+                            <li><strong>Type :</strong><br /> {{ object.get_type_of_ads_display }}</li>
+                            <li><strong>Description :</strong><br /> {{ object.description|linebreaksbr }}</li>
+                        </ul>
+                        {{ form }}
+                        <input type="submit" class="btn btn-danger" value="Confirmer la suppression">
+                        <a href="{% url 'ads:ads-detail' object.pk %}"
+                           class="btn btn-primary"
+                           title="TerrarioPedia - Petite annonce - {{ object.get_category_display }}">Retour à l'annonce</a>
+                    </form>
+                 </div>
+             </div>
+         </div>
+</div>
+{% endblock %}

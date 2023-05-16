@@ -1,0 +1,20 @@
+{% extends 'base.html' %}{% load unicorn %}
+{% block page_title %}Tortues{% endblock %}
+
+{% block title %}Tortues{% endblock %}
+
+{% block content %}
+  <div class="container-fluid">
+         <div class="container-fluid">
+             <div class="card">
+                 <div class="card-body">
+                    <h5 class="card-title fw-semibold mb-4">Fiches d'élevage de tortue</h5>
+                     <a href="{% url 'card:turtle-new' %}" class="btn btn-outline-primary mb-3" title="TerrarioPedia - Ajouter une fiche d'élevage de lézard">Nouvelle fiche</a>
+                    <div class="row">
+                      {% unicorn 'turtle-list' quantity="0" %}
+                    </div>
+                 </div>
+             </div>
+         </div>
+</div>
+{% endblock %}

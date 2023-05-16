@@ -1,0 +1,19 @@
+{% extends 'base.html' %}
+{% load unicorn %}
+
+{% block page_title %}Membres{% endblock %}
+
+{% block title %}Membres{% endblock %}
+
+{% block content %}
+  <div class="container-fluid">
+         <div class="container-fluid">
+             <div class="card">
+                 <div class="card-body">
+                    <h5 class="card-title fw-semibold mb-4">Membres</h5>
+                      {% unicorn 'member-list' query="all" %}<br />
+                 </div>
+             </div>
+         </div>
+</div>
+{% endblock %}

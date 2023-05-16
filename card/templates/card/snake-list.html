@@ -1,0 +1,18 @@
+{% extends 'base.html' %}{% load unicorn %}
+{% block page_title %}Serpents{% endblock %}
+
+{% block title %}Serpents{% endblock %}
+
+{% block content %}
+<div class="container-fluid">
+         <div class="container-fluid">
+             <div class="card">
+                 <div class="card-body">
+                      <h5 class="card-title fw-semibold mb-4">Fiches d'élevage de serpents</h5>
+                     <a href="{% url 'card:snake-new' %}" class="btn btn-outline-primary mb-3" title="TerrarioPedia - Ajouter une fiche d'élevage de serpent">Nouvelle fiche</a>
+                      {% unicorn 'snake-list' quantity="0" %}
+                 </div>
+             </div>
+         </div>
+</div>
+{% endblock %}

@@ -1,0 +1,20 @@
+{% extends 'base.html' %}{% load unicorn %}
+{% block page_title %}Lézards{% endblock %}
+
+{% block title %}Lézards{% endblock %}
+
+{% block content %}
+  <div class="container-fluid">
+         <div class="container-fluid">
+             <div class="card">
+                 <div class="card-body">
+                    <h5 class="card-title fw-semibold mb-4">Fiches d'élevage de lézards</h5>
+                     <a href="{% url 'card:lizard-new' %}" class="btn btn-outline-primary mb-3" title="TerrarioPedia - Ajouter une fiche d'élevage de lézard">Nouvelle fiche</a>
+                    <div class="row">
+                      {% unicorn 'lizard-list' quantity="0" %}
+                    </div>
+                 </div>
+             </div>
+         </div>
+</div>
+{% endblock %}

@@ -1,0 +1,204 @@
+{% load thumbnail %}{% load static %}
+<div class="row">
+    <div class="col-md-4">
+        {% thumbnail snake.image "450x300" crop="center" as im %}
+            <img src="{{ im.url }}" width="{{ im.width }}" height="{{ im.height }}" class="card-img-top img-responsive"
+                 alt="TerrarioPedia - Serpents - Fiche d'élevage {{ snake.get_scientific_name }}"/>
+        {% endthumbnail %}
+        <div class="row mt-1">
+            <hr />
+            <div class="col-sm-6">
+                <b>Difficulté de détention</b><br />
+                {% if snake.difficulty_care == 'N' %}
+                <img src="{% static 'assets/images/jauges/1.png' %}" class="img-fluid" width="150" height="90" title="TerrarioPedia - Fiches d'élevage - Serpents - Difficulté de détention de {{ snake.get_scientific_name }}" />
+                {% endif %}
+                {% if snake.difficulty_care == 'B' %}
+                <img src="{% static 'assets/images/jauges/2.png' %}" class="img-fluid" width="150" height="90" title="TerrarioPedia - Fiches d'élevage - Serpents - Difficulté de détention de {{ snake.get_scientific_name }}" />
+                {% endif %}
+                {% if snake.difficulty_care == 'E' %}
+                <img src="{% static 'assets/images/jauges/3.png' %}" class="img-fluid" width="150" height="90" title="TerrarioPedia - Fiches d'élevage - Serpents - Difficulté de détention de {{ snake.get_scientific_name }}" />
+                {% endif %}
+                {% if snake.difficulty_care == 'X' %}
+                <img src="{% static 'assets/images/jauges/4.png' %}" class="img-fluid" width="150" height="90" title="TerrarioPedia - Fiches d'élevage - Serpents - Difficulté de détention de {{ snake.get_scientific_name }}" />
+                {% endif %}
+            </div>
+            <div class="col-sm-6">
+                {% if snake.toxicity_level == "N" %}
+                <strong>Danger de la morsure</strong><br />
+                {% if snake.bite_dangerosity == 'I' %}
+                <img src="{% static 'assets/images//jauges/1.png' %}" class="img-fluid" width="150" height="90" title="TerrarioPedia - Fiches d'élevage - Serpents - {{ snake.get_scientific_name }}" />
+                {% endif %}
+                {% if snake.bite_dangerosity == 'P' %}
+                <img src="{% static 'assets/images//jauges/2.png' %}" class="img-fluid" width="150" height="90" title="TerrarioPedia - Fiches d'élevage - Serpents - {{ snake.get_scientific_name }}" />
+                {% endif %}
+                {% if snake.bite_dangerosity == 'D' %}
+                <img src="{% static 'assets/images//jauges/3.png' %}" class="img-fluid" width="150" height="90" title="TerrarioPedia - Fiches d'élevage - Serpents - {{ snake.get_scientific_name }}" />
+                {% endif %}
+                {% if snake.bite_dangerosity == 'E' %}
+                <img src="{% static 'assets/images//jauges/4.png' %}" class="img-fluid" width="150" height="90" title="TerrarioPedia - Fiches d'élevage - Serpents - {{ snake.get_scientific_name }}" />
+                {% endif %}
+                {% else %}
+                <strong>Danger envenimation</strong><br />
+                {% if snake.toxicity_level == 'F' %}
+                <img src="{% static 'assets/images/jauges/1.png' %}" class="img-fluid" width="150" height="90" title="TerrarioPedia -Fiches d'élevage - Serpents - {{ snake.get_scientific_name }}" />
+                {% endif %}
+                {% if snake.toxicity_level == 'A' %}
+                <img src="{% static 'assets/images/jauges/2.png' %}" class="img-fluid" width="150" height="90" title="TerrarioPedia - Fiches d'élevage - Serpents - {{ snake.get_scientific_name }}" />
+                {% endif %}
+                {% if snake.toxicity_level == 'H' %}
+                <img src="{% static 'assets/images/jauges/3.png' %}" class="img-fluid" width="150" height="90" title="TerrarioPedia - Fiches d'élevage - Serpents - {{ snake.get_scientific_name }}" />
+                {% endif %}
+                {% if snake.toxicity_level == 'I' %}
+                <img src="{% static 'assets/images/jauges/4.png' %}" class="img-fluid" width="150" height="90" title="TerrarioPedia - Fiches d'élevage - Serpents - {{ snake.get_scientific_name }}" />
+                {% endif %}
+                {% endif %}
+            </div>
+            <hr />
+        </div>
+        <p>
+            {{ snake.more_informations }}
+        </p>
+        <hr />
+        <a href="{% url 'card:snake-edit' snake.slug %}" class="btn btn-warning btn-block" title="TerrarioPedia - Serpents - Fiches d'élevage de {{ snake.get_scientific_name }} - Editer">Editer</a><br />
+        <strong>Dernière modification</strong><br /> {{ snake.last_owner }} - {{ snake.last_update|date:"d F Y" }}
+    </div>
+    <div class="col-md-8">
+        <h2>{{ snake.get_scientific_name }}</h2>
+        <p>Espèce{% if not snake.is_cites %} non{% endif %} CITES
+            {% if snake.bern_convention_annex %}- annexe {{ snake.bern_convention_annex }}{% endif %}</p>
+        <strong>Description</strong>
+        <div class="table-responsive">
+            <table class="table search-table align-middle text-nowrap">
+                <tbody>
+                    <tr class="search item">
+                        <td scope="row">Taille des juvéniles</td>
+                        <td>{{ snake.juvenil_size }} cm</td>
+                    </tr>
+                    <tr class="search item">
+                        <td scope="row">Taille des adultes</td>
+                        <td>{{ snake.adult_size }} cm</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+        <strong>Biologie</strong>
+        <div class="table-responsive">
+            <table class="table search-table align-middle text-nowrap">
+                <tbody>
+                    <tr class="search item">
+                        <td scope="row">Espérance de vie</td>
+                        <td>{{ snake.life_expectancy }} ans</td>
+                    </tr>
+                    <tr class="search item">
+                        <td scope="row">Moeurs principal</td>
+                        <td>{{ snake.get_main_mores_display }}</td>
+                    </tr>
+                    <tr class="search item">
+                        <td scope="row">Tempérament</td>
+                        <td>{{ snake.get_main_behavior_display }}</td>
+                    </tr>
+                    <tr class="search item">
+                        <td scope="row">Période d'activité</td>
+                        <td>{{ snake.get_activity_period_display }}</td>
+                    </tr>
+                    <tr class="search item">
+                        <td scope="row">Proies</td>
+                        <td>
+                            {% for prey in snake.preys.all %}
+                                {{ prey }}{% if not forloop.last %}<br /> {% endif %}
+                            {% endfor %}
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+        <strong>Environnements</strong>
+        <div class="table-responsive">
+            <table class="table search-table align-middle text-nowrap">
+                <tbody>
+                    <tr class="search item">
+                        <td scope="row">Distribution</td>
+                        <td>{{ snake.distribution }}</td>
+                    </tr>
+                    <tr class="search item">
+                        <td scope="row">Biotopes</td>
+                        <td>
+                            {% for biotop in snake.biotops.all %}
+                            {{ biotop }}{% if not forloop.last %}<br /> {% endif %}
+                            {% endfor %}
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+        <strong>En captivité</strong>
+        <div class="table-responsive">
+            <table class="table table-responsive search-table align-middle text-nowrap">
+                <tbody>
+                    <tr class="search item">
+                        <td scope="row">Difficulté de détention</td>
+                        <td>{{ snake.get_difficulty_care_display }}</td>
+                    </tr>
+                    <tr class="search item">
+                        <td scope="row">Dimension du Terrarium</td>
+                        <td>{{ snake.vivarium_size }} cm</td>
+                    </tr>
+                    <tr class="search item">
+                        <td scope="row">Température jour / nuit</td>
+                        <td>{{ snake.day_temperature }} / {{ snake.night_temperature }}</td>
+                    </tr>
+                    <tr class="search item">
+                        <td scope="row">Humidité</td>
+                        <td>{{ snake.humidity }}</td>
+                    </tr>
+                    <tr class="search item">
+                        <td scope="row">Dimension du Terrarium</td>
+                        <td>{{ snake.vivarium_size }} cm</td>
+                    </tr>
+                    <tr class="search item">
+                        <td scope="row">Vie en communauté</td>
+                        <td>
+                            {% for life_community in snake.life_community.all %}
+                            {{ life_community }}{% if not forloop.last %}<br /> {% endif %}
+                            {% endfor %}
+                        </td>
+                    </tr>
+                    <tr class="search item">
+                        <td scope="row">Dangerosité de la morsure</td>
+                        <td>{{ snake.get_bite_dangerosity_display }}</td>
+                    </tr>
+                    <tr class="search item">
+                        <td scope="row">Dangerosité de l'envenimation</td>
+                        <td>{{ snake.get_toxicity_level_display }}</td>
+                    </tr>
+                <tr class="search item">
+                        <td schope="row">Venins</td>
+                        <td>
+                            {% for venom in snake.venoms.all %}
+                                <a class="text-decoration-none" href="#" data-bs-toggle="modal" data-bs-target="#venom{{ forloop.counter }}">{{ venom }}</a>{% if not forloop.last %}<br /> {% endif %}
+
+
+                            <div id="venom{{ forloop.counter }}" class="modal" tabindex="-1">
+                              <div class="modal-dialog">
+                                <div class="modal-content">
+                                  <div class="modal-header">
+                                    <h5 class="modal-title">{{ venom }}</h5>
+                                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                  </div>
+                                  <div class="modal-body">
+                                    <p>{{ venom.effects }}</p>
+                                  </div>
+                                  <div class="modal-footer">
+                                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Fermer</button>
+                                  </div>
+                                </div>
+                              </div>
+                            </div>
+                            {% endfor %}
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>

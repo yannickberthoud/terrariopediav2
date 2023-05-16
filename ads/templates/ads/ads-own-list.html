@@ -1,0 +1,21 @@
+{% extends 'base.html' %}
+{% load unicorn %}
+
+{% block page_title %}Mes annonces{% endblock %}
+
+{% block title %}Mes annonces{% endblock %}
+
+{% block content %}
+  <div class="container-fluid">
+         <div class="container-fluid">
+             <div class="card">
+                 <div class="card-body">
+                    <h5 class="card-title fw-semibold mb-4">Mes annonces</h5>
+                     <a href="{% url 'ads:ads-new' %}" class="btn btn-outline-primary mb-3" title="TerrarioPedia - Ajouter une fiche d'élevage d'amphibien">Nouvelle annonce</a>
+                      {% unicorn 'ads-own-list' owner=owner %}
+                 </div>
+             </div>
+         </div>
+</div>
+
+{% endblock %}

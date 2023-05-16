@@ -1,0 +1,204 @@
+{% load thumbnail %}{% load static %}
+<div class="row">
+    <div class="col-md-4">
+        {% thumbnail arthropod.image "400x300" crop="center" as im %}
+            <img src="{{ im.url }}" width="{{ im.width }}" height="{{ im.height }}" class="card-img-top"
+                 alt="TerrarioPedia - Arthropodes - Fiche d'élevage {{ arthropod.get_scientific_name }}"/>
+        {% endthumbnail %}
+        <div class="row mt-1">
+            <hr />
+            <div class="col-sm-6">
+                <b>Difficulté de détention</b><br />
+                {% if arthropod.difficulty_care == 'N' %}
+                <img src="{% static 'assets/images/jauges/1.png' %}" class="img-fluid" width="150" height="90" title="TerrarioPedia - Fiches d'élevage - Arthropodes - Difficulté de détention de {{ arthropod.get_scientific_name }}" />
+                {% endif %}
+                {% if arthropod.difficulty_care == 'B' %}
+                <img src="{% static 'assets/images/jauges/2.png' %}" class="img-fluid" width="150" height="90" title="TerrarioPedia - Fiches d'élevage - Arthropodes - Difficulté de détention de {{ arthropod.get_scientific_name }}" />
+                {% endif %}
+                {% if arthropod.difficulty_care == 'E' %}
+                <img src="{% static 'assets/images/jauges/3.png' %}" class="img-fluid" width="150" height="90" title="TerrarioPedia - Fiches d'élevage - Arthropodes - Difficulté de détention de {{ arthropod.get_scientific_name }}" />
+                {% endif %}
+                {% if arthropod.difficulty_care == 'X' %}
+                <img src="{% static 'assets/images/jauges/4.png' %}" class="img-fluid" width="150" height="90" title="TerrarioPedia - Fiches d'élevage - Arthropodes - Difficulté de détention de {{ arthropod.get_scientific_name }}" />
+                {% endif %}
+            </div>
+            <div class="col-sm-6">
+                {% if arthropod.toxicity_level == "N" %}
+                <strong>Danger de la morsure</strong><br />
+                {% if arthropod.bite_dangerosity == 'I' %}
+                <img src="{% static 'assets/images//jauges/1.png' %}" class="img-fluid" width="150" height="90" title="TerrarioPedia - Fiches d'élevage - Arthropodes - {{ arthropod.get_scientific_name }}" />
+                {% endif %}
+                {% if arthropod.bite_dangerosity == 'P' %}
+                <img src="{% static 'assets/images//jauges/2.png' %}" class="img-fluid" width="150" height="90" title="TerrarioPedia - Fiches d'élevage - Arthropodes - {{ arthropod.get_scientific_name }}" />
+                {% endif %}
+                {% if arthropod.bite_dangerosity == 'D' %}
+                <img src="{% static 'assets/images//jauges/3.png' %}" class="img-fluid" width="150" height="90" title="TerrarioPedia - Fiches d'élevage - Arthropodes - {{ arthropod.get_scientific_name }}" />
+                {% endif %}
+                {% if arthropod.bite_dangerosity == 'E' %}
+                <img src="{% static 'assets/images//jauges/4.png' %}" class="img-fluid" width="150" height="90" title="TerrarioPedia - Fiches d'élevage - Arthropodes - {{ arthropod.get_scientific_name }}" />
+                {% endif %}
+                {% else %}
+                <strong>Danger envenimation</strong><br />
+                {% if arthropod.toxicity_level == 'F' %}
+                <img src="{% static 'assets/images/jauges/1.png' %}" class="img-fluid" width="150" height="90" title="TerrarioPedia -Fiches d'élevage - Arthropodes - {{ arthropod.get_scientific_name }}" />
+                {% endif %}
+                {% if arthropod.toxicity_level == 'A' %}
+                <img src="{% static 'assets/images/jauges/2.png' %}" class="img-fluid" width="150" height="90" title="TerrarioPedia - Fiches d'élevage - Arthropodes - {{ arthropod.get_scientific_name }}" />
+                {% endif %}
+                {% if arthropod.toxicity_level == 'H' %}
+                <img src="{% static 'assets/images/jauges/3.png' %}" class="img-fluid" width="150" height="90" title="TerrarioPedia - Fiches d'élevage - Arthropodes - {{ arthropod.get_scientific_name }}" />
+                {% endif %}
+                {% if arthropod.toxicity_level == 'I' %}
+                <img src="{% static 'assets/images/jauges/4.png' %}" class="img-fluid" width="150" height="90" title="TerrarioPedia - Fiches d'élevage - Arthropodes - {{ arthropod.get_scientific_name }}" />
+                {% endif %}
+                {% endif %}
+            </div>
+            <hr />
+        </div>
+        <p>
+            {{ arthropod.more_informations }}
+        </p>
+        <hr />
+        <a href="{% url 'card:arthropod-edit' arthropod.slug %}" class="btn btn-warning btn-block" title="TerrarioPedia - Arthropodes - Fiches d'élevage de {{ arthropod.get_scientific_name }} - Editer">Editer</a><br />
+        <strong>Dernière modification</strong><br /> {{ arthropod.last_owner }} - {{ arthropod.last_update|date:"d F Y" }}
+    </div>
+    <div class="col-md-6">
+        <h2>{{ arthropod.get_scientific_name }}</h2>
+        <p>Espèce{% if not arthropod.is_cites %} non{% endif %} CITES
+            {% if arthropod.bern_convention_annex %}- annexe {{ arthropod.bern_convention_annex }}{% endif %}</p>
+        <strong>Description</strong>
+        <div class="table-responsive">
+            <table class="table search-table align-middle text-nowrap">
+                <tbody>
+                    <tr class="search item">
+                        <td scope="row">Taille des juvéniles</td>
+                        <td>{{ arthropod.juvenil_size }} cm</td>
+                    </tr>
+                    <tr class="search item">
+                        <td scope="row">Taille des adultes</td>
+                        <td>{{ arthropod.adult_size }} cm</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+        <strong>Biologie</strong>
+        <div class="table-responsive">
+            <table class="table search-table align-middle text-nowrap">
+                <tbody>
+                    <tr class="search item">
+                        <td scope="row">Espérance de vie</td>
+                        <td>{{ arthropod.life_expectancy }} ans</td>
+                    </tr>
+                    <tr class="search item">
+                        <td scope="row">Moeurs principal</td>
+                        <td>{{ arthropod.get_main_mores_display }}</td>
+                    </tr>
+                    <tr class="search item">
+                        <td scope="row">Tempérament</td>
+                        <td>{{ arthropod.get_main_behavior_display }}</td>
+                    </tr>
+                    <tr class="search item">
+                        <td scope="row">Période d'activité</td>
+                        <td>{{ arthropod.get_activity_period_display }}</td>
+                    </tr>
+                    <tr class="search item">
+                        <td scope="row">Proies</td>
+                        <td>
+                            {% for prey in arthropod.preys.all %}
+                                {{ prey }}{% if not forloop.last %}<br /> {% endif %}
+                            {% endfor %}
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+        <strong>Environnements</strong>
+        <div class="table-responsive">
+            <table class="table search-table align-middle text-nowrap">
+                <tbody>
+                    <tr class="search item">
+                        <td scope="row">Distribution</td>
+                        <td>{{ arthropod.distribution }}</td>
+                    </tr>
+                    <tr class="search item">
+                        <td scope="row">Biotopes</td>
+                        <td>
+                            {% for biotop in arthropod.biotops.all %}
+                            {{ biotop }}{% if not forloop.last %}<br /> {% endif %}
+                            {% endfor %}
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+        <strong>En captivité</strong>
+        <div class="table-responsive">
+            <table class="table table-responsive search-table align-middle text-nowrap">
+                <tbody>
+                    <tr class="search item">
+                        <td scope="row">Difficulté de détention</td>
+                        <td>{{ arthropod.get_difficulty_care_display }}</td>
+                    </tr>
+                    <tr class="search item">
+                        <td scope="row">Dimension du Terrarium</td>
+                        <td>{{ arthropod.vivarium_size }} cm</td>
+                    </tr>
+                    <tr class="search item">
+                        <td scope="row">Température jour / nuit</td>
+                        <td>{{ arthropod.day_temperature }} / {{ arthropod.night_temperature }}</td>
+                    </tr>
+                    <tr class="search item">
+                        <td scope="row">Humidité</td>
+                        <td>{{ arthropod.humidity }}</td>
+                    </tr>
+                    <tr class="search item">
+                        <td scope="row">Dimension du Terrarium</td>
+                        <td>{{ arthropod.vivarium_size }} cm</td>
+                    </tr>
+                    <tr class="search item">
+                        <td scope="row">Vie en communauté</td>
+                        <td>
+                            {% for life_community in arthropod.life_community.all %}
+                            {{ life_community }}{% if not forloop.last %}<br /> {% endif %}
+                            {% endfor %}
+                        </td>
+                    </tr>
+                    <tr class="search item">
+                        <td scope="row">Dangerosité de la morsure</td>
+                        <td>{{ arthropod.get_bite_dangerosity_display }}</td>
+                    </tr>
+                    <tr class="search item">
+                        <td scope="row">Dangerosité de l'envenimation</td>
+                        <td>{{ arthropod.get_toxicity_level_display }}</td>
+                    </tr>
+                    <tr class="search item">
+                        <td schope="row">Venins</td>
+                        <td>
+                            {% for venom in arthropod.venoms.all %}
+                                <a class="text-decoration-none" href="#" data-bs-toggle="modal" data-bs-target="#venom{{ forloop.counter }}">{{ venom }}</a>{% if not forloop.last %}<br /> {% endif %}
+
+
+                            <div id="venom{{ forloop.counter }}" class="modal" tabindex="-1">
+                              <div class="modal-dialog">
+                                <div class="modal-content">
+                                  <div class="modal-header">
+                                    <h5 class="modal-title">{{ venom }}</h5>
+                                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                  </div>
+                                  <div class="modal-body">
+                                    <p>{{ venom.effects }}</p>
+                                  </div>
+                                  <div class="modal-footer">
+                                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Fermer</button>
+                                  </div>
+                                </div>
+                              </div>
+                            </div>
+                            {% endfor %}
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>

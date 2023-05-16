@@ -1,0 +1,28 @@
+{% load thumbnail %}
+<div class="card rounded-2 overflow-hidden">
+    <div class="position-relative">
+        <a href="javascript:void(0)">
+          {% thumbnail documentation.banner "900x450" crop="center" as im %}
+          <img src="{{ im.url }}"
+               class="card-img-top rounded-0 object-fit-cover"
+               alt="TerrarioPedia - Documentations - {{ documentation.get_category_display }} - {{ documentation.title }}" width="{{ im.width }}" height="{{ im.height }}">
+          {% endthumbnail %}
+        </a>
+    </div>
+    <div class="card-body p-4">
+        <span class="badge text-bg-light fs-2 rounded-4 py-1 px-2 lh-sm  mt-3">{{ documentation.get_category_display }}</span>
+        <div class="d-flex align-items-center gap-4">
+            <div class="d-flex align-items-center gap-2">
+                Un article de {{ documentation.owner }} écrit le {{ documentation.created_at|date:"d F Y" }}<br />
+                Dernière modification par {{ documentation.last_update_user }} le {{ documentation.updated_at|date:"d F Y" }}<br />
+            </div>
+        </div>
+        <a href="{% url 'documentation:documentation-edit' documentation.get_category_display|lower documentation.slug %}"
+               class="btn btn-warning"
+               title="TerrarioPedia - Documentations - {{ documentation.get_category_display }} - {{ documentation.title }}">Mettre à jour</a>
+    </div>
+    <div class="card-body border-top p-4">
+        <h2 class="fs-8 fw-semibold mb-3">{{ documentation.title }}</h2>
+        {{ documentation.content|linebreaks }}
+    </div>
+</div>

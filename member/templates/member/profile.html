@@ -1,0 +1,16 @@
+{% extends 'base.html' %}{% load unicorn %}
+{% block page_title %}Mon profile{% endblock %}
+{% block title %}Mon profile{% endblock %}
+
+{% block content %}
+  <div class="container-fluid">
+         <div class="container-fluid">
+             <div class="card">
+                 <div class="card-body">
+                    <h5 class="card-title fw-semibold mb-4">Mon profil</h5>
+                     {% unicorn 'member-detail' pk=current_user %}
+                 </div>
+             </div>
+         </div>
+</div>
+{% endblock %}
