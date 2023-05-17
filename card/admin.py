@@ -1,5 +1,5 @@
 from django.contrib import admin
-from .models import Amphibian, Arthropod, Lizard, Snake, Venom, Prey, Biotop, LifeCommunity, Turtle
+from .models import Amphibian, Arthropod, Lizard, Snake, Venom, Prey, Biotop, LifeCommunity, Turtle, ReproductionPeriod
 
 @admin.register(Venom)
 class VenomAdmin(admin.ModelAdmin):
@@ -29,6 +29,13 @@ class LifeCommunityAdmin(admin.ModelAdmin):
     ]
     list_display = ("name",)
 
+@admin.register(ReproductionPeriod)
+class ReproductionPeriodCommunityAdmin(admin.ModelAdmin):
+    fieldsets = [
+        (None, {'fields': ["name"]})
+    ]
+    list_display = ("name",)
+
 @admin.register(Amphibian)
 class AmphibianAdmin(admin.ModelAdmin):
     def save_model(self, request, obj, form, change):
@@ -42,7 +49,7 @@ class AmphibianAdmin(admin.ModelAdmin):
     fieldsets = [
         (None, {"fields": ["genus", "species"]}),
         ('Description physique', {'fields': ["juvenil_size", "adult_size", "image_egg", "image_larve", "image"]}),
-        ('Biologie', {'fields': ["life_expectancy", "main_mores", "main_behavior", "activity_period", "volume_call", "preys"]}),
+        ('Biologie', {'fields': ["life_expectancy", "main_mores", "main_behavior", "activity_period", "reproduction", "reproduction_period", "volume_call", "preys"]}),
         ('Environement', {'fields': ["distribution", "biotops"]}),
         ('Protection', {'fields': ['is_cites', 'bern_convention_annex']}),
         ('En captivité', {'fields': ['vivarium_size', 'day_temperature', 'night_temperature', 'humidity', 'difficulty_care', 'bite_dangerosity', 'life_community']}),
@@ -69,7 +76,7 @@ class ArthropodAdmin(admin.ModelAdmin):
     fieldsets = [
         (None, {"fields": ["genus", "species"]}),
         ('Description physique', {'fields': ["juvenil_size", "adult_size", "image"]}),
-        ('Biologie', {'fields': ["life_expectancy","main_mores", "main_behavior", "activity_period", "preys"]}),
+        ('Biologie', {'fields': ["life_expectancy","main_mores", "main_behavior", "activity_period", "reproduction", "reproduction_period", "preys"]}),
         ('Environement', {'fields': ["distribution", "biotops"]}),
         ('Protection', {'fields': ['is_cites', 'bern_convention_annex']}),
         ('Toxicologie', {'fields': ['toxicity_level', 'venoms']}),
@@ -98,7 +105,7 @@ class LizardAdmin(admin.ModelAdmin):
     fieldsets = [
         (None, {"fields": ["genus", "species"]}),
         ('Description physique', {'fields': ["juvenil_size", "adult_size", "image"]}),
-        ('Biologie', {'fields': ["life_expectancy","main_mores", "main_behavior", "activity_period", "preys"]}),
+        ('Biologie', {'fields': ["life_expectancy","main_mores", "main_behavior", "activity_period", "reproduction", "reproduction_period", "preys"]}),
         ('Environement', {'fields': ["distribution", "biotops"]}),
         ('Protection', {'fields': ['is_cites', 'bern_convention_annex']}),
         ('En captivité', {'fields': ['vivarium_size', 'day_temperature', 'night_temperature', 'humidity', 'difficulty_care', 'bite_dangerosity', 'life_community']}),
@@ -124,8 +131,8 @@ class SnakeAdmin(admin.ModelAdmin):
 
     fieldsets = [
         (None, {"fields": ["genus", "species"]}),
-        ('Description physique', {'fields': ["juvenil_size", "adult_size", "image"]}),
-        ('Biologie', {'fields': ["life_expectancy", "main_mores", "main_behavior", "activity_period", "preys"]}),
+        ('Description physique', {'fields': ["dentition","juvenil_size", "adult_size", "image"]}),
+        ('Biologie', {'fields': ["life_expectancy", "main_mores", "main_behavior", "activity_period", "reproduction", "reproduction_period", "preys"]}),
         ('Environement', {'fields': ["distribution", "biotops"]}),
         ('Protection', {'fields': ['is_cites', 'bern_convention_annex']}),
         ('Toxicologie', {'fields': ['toxicity_level', 'venoms']}),
@@ -153,7 +160,7 @@ class turtleAdmin(admin.ModelAdmin):
     fieldsets = [
         (None, {"fields": ["genus", "species"]}),
         ('Description physique', {'fields': ["juvenil_size", "adult_size", "image"]}),
-        ('Biologie', {'fields': ["life_expectancy","main_mores", "main_behavior", "activity_period", 'type_of_turtle', "preys"]}),
+        ('Biologie', {'fields': ["life_expectancy","main_mores", "main_behavior", "activity_period", "reproduction", "reproduction_period", 'type_of_turtle', "preys"]}),
         ('Environement', {'fields': ["distribution", "biotops"]}),
         ('Protection', {'fields': ['is_cites', 'bern_convention_annex']}),
         ('En captivité', {'fields': ['vivarium_size', 'day_temperature', 'night_temperature', 'humidity', 'difficulty_care', 'bite_dangerosity', 'life_community']}),

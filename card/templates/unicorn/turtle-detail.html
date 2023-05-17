@@ -90,6 +90,18 @@
                         <td>{{ turtle.get_type_of_turtle_display }}</td>
                     </tr>
                     <tr class="search item">
+                        <td scope="row">Reproduction</td>
+                        <td>{{ turtle.get_reproduction_display }}</td>
+                    </tr>
+                    <tr class="search item">
+                        <td scope="row">Période de reproduction</td>
+                        <td>
+                            {% for reproduction_period in turtle.reproduction_period.all %}
+                                {{ reproduction_period }}{% if not forloop.last %}<br /> {% endif %}
+                            {% endfor %}
+                        </td>
+                    </tr>
+                    <tr class="search item">
                         <td scope="row">Proies</td>
                         <td>
                             {% for prey in turtle.preys.all %}

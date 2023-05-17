@@ -102,6 +102,18 @@
                         <td>{{ arthropod.get_activity_period_display }}</td>
                     </tr>
                     <tr class="search item">
+                        <td scope="row">Reproduction</td>
+                        <td>{{ arthropod.get_reproduction_display }}</td>
+                    </tr>
+                    <tr class="search item">
+                        <td scope="row">Période de reproduction</td>
+                        <td>
+                            {% for reproduction_period in arthropod.reproduction_period.all %}
+                                {{ reproduction_period }}{% if not forloop.last %}<br /> {% endif %}
+                            {% endfor %}
+                        </td>
+                    </tr>
+                    <tr class="search item">
                         <td scope="row">Proies</td>
                         <td>
                             {% for prey in arthropod.preys.all %}

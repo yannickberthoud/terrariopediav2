@@ -13,5 +13,5 @@ class MemberDetailView(UnicornView):
         self.load(pk)
 
     def load(self, pk):
-        self.profile = get_object_or_404(Profile, pk=pk)
+        self.profile = get_object_or_404(Profile, user=pk)
         self.user = get_object_or_404(User, pk=pk)

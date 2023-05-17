@@ -35,6 +35,16 @@ class LifeCommunity(models.Model):
         verbose_name = "Vie en communauté"
         verbose_name_plural = "Vies en communauté"
 
+class ReproductionPeriod(models.Model):
+    name = models.CharField(max_length=64)
+
+    def __str__(self):
+        return self.name
+
+    class Meta:
+        verbose_name = "Période de reproduction"
+        verbose_name_plural = "Périodes de reproduction"
+
 class Card(models.Model):
     BITE_DANGEROSITY_CHOICES = (
         ('I', 'Inofensif'),
@@ -51,7 +61,7 @@ class Card(models.Model):
     MORES_CHOICES = (
         ('F', 'Fouisseur'),
         ('T', 'Terrestre'),
-        ('A', '(Semi-)Arboricole')
+        ('A', 'Arboricole')
     )
     ACTIVITY_PERIOD_CHOICES = (
         ('N', 'Nocturne'),
@@ -64,6 +74,11 @@ class Card(models.Model):
         ('D', 'Démonstratif'),
         ('I', 'Irascible')
     )
+    REPRODUCTIONS = (
+        ('O', 'Ovipare'),
+        ('V', 'Vivipare'),
+        ('I', 'Ovovivipare')
+    )
     genus = models.CharField(max_length=64, verbose_name="Genre", help_text="Exemple: Thamnophis")
     species = models.CharField(max_length=128, verbose_name="Espèce (sous-espèce)", help_text="Exemple : sirtalis similis")
     is_cites = models.BooleanField()
@@ -73,6 +88,8 @@ class Card(models.Model):
     life_expectancy = models.CharField(max_length=100, verbose_name="Espérance de vie", help_text="Exemple: 15 - 20 ans", default=15)
     main_mores = models.CharField(max_length=1, verbose_name="Moeurs principale", choices=MORES_CHOICES)
     activity_period = models.CharField(max_length=1, verbose_name="Période d'activité principale", choices=ACTIVITY_PERIOD_CHOICES)
+    reproduction = models.CharField(max_length=1, verbose_name="Mode de reproduction", default="0", blank=True, choices=REPRODUCTIONS)
+    reproduction_period = models.ManyToManyField(ReproductionPeriod, blank=True)
     preys = models.ManyToManyField(Prey, verbose_name="Proies")
     main_behavior = models.CharField(max_length=1, verbose_name="Tempérament", choices=BEHAVIOR_CHOICES)
     distribution = models.CharField(max_length=1024)
@@ -128,6 +145,14 @@ def snake_directory_path(instance, filename):
     return "medias/uploads/snake/{0}/{1}/{2}".format(instance.genus, instance.species, filename)
 
 class Snake(VenomousCard):
+    DENTITIONS = (
+        ('A', 'Aglyphe'),
+        ('O', 'Opistoglyphe'),
+        ('T', 'Opisthodonte'),
+        ('P', 'Protégroglyphe'),
+        ('S', 'Solénoglyphe')
+    )
+    dentition = models.CharField(max_length=1, verbose_name="Dentition", default='A', choices=DENTITIONS)
     image = ImageField(upload_to=snake_directory_path)
 
     class Meta:

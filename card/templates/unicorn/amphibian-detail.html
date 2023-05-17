@@ -98,6 +98,18 @@
                         <td>{{ amphibian.get_volume_call_display }}</td>
                     </tr>
                     <tr class="search item">
+                        <td scope="row">Reproduction</td>
+                        <td>{{ amphibian.get_reproduction_display }}</td>
+                    </tr>
+                    <tr class="search item">
+                        <td scope="row">Période de reproduction</td>
+                        <td>
+                            {% for reproduction_period in amphibian.reproduction_period.all %}
+                                {{ reproduction_period }}{% if not forloop.last %}<br /> {% endif %}
+                            {% endfor %}
+                        </td>
+                    </tr>
+                    <tr class="search item">
                         <td scope="row">Proies</td>
                         <td>
                             {% for prey in amphibian.preys.all %}
